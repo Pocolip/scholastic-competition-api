@@ -50,8 +50,6 @@ function *index(){
         this.throw('Not Found', 404);
     }
 
-    console.log(professors);
-
     this.status = 200;
 
     this.body = { professors : professors}
