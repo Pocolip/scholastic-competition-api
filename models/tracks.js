@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var Track =  sequelize.define('Tracks', {
+    var Track =  sequelize.define('Track', {
         id : {
             type : DataTypes.INTEGER,
             allowNull : false,
