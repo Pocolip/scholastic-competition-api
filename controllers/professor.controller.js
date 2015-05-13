@@ -13,8 +13,8 @@ module.exports = function(){
 
     var professorController = new Router()
         .post('/professor', loadModels, koaBody, create)
-        .get('/professor', index)
-        .get('/professor/:id', show);
+        .get('/professor', loadModels, index)
+        .get('/professor/:id', loadModels, show);
 
     return professorController.routes();
 }
@@ -24,6 +24,8 @@ module.exports = function(){
  */
 function *create(){
     var payload = this.request.body.fields;
+
+    console.log(payload);
 
     if(!payload) this.throw('Invalid Payload', 400);
 
@@ -37,9 +39,7 @@ function *create(){
 function *index(){
     var professors;
     try {
-        professors = yield this.models['Professor'].findAll({
-            attributes : ['id', 'name', 'address1', 'address2', 'zipcode', 'city', 'grade', 'phone', 'createdAt', 'updatedAt']
-        });
+        professors = yield this.models['Professor'].findAll();
     } catch (err) {
         this.throw(err.message, err.status || 500);
     }
@@ -47,6 +47,8 @@ function *index(){
     if(!professors || professors.length < 1){
         this.throw('Not Found', 404);
     }
+
+    console.log(professors);
 
     this.status = 200;
 
@@ -61,8 +63,7 @@ function *show(){
         professor = yield this.models['Professor'].find({
             where : {
                 id : id
-            },
-            attributes : ['id', 'name', 'address1', 'address2', 'zipcode', 'city', 'grade', 'phone', 'createdAt', 'updatedAt']
+            }
         });
     } catch(err) {
         this.throw(err.message, err.status || 500);

@@ -9,8 +9,8 @@ module.exports = function(){
 
     var studentController = new Router()
         .post('/student', loadModels, koaBody, create)
-        .get('/student', index)
-        .get('/student/:id', show);
+        .get('/student', loadModels, index)
+        .get('/student/:id', loadModels, show);
 
     return studentController.routes();
 }
@@ -28,6 +28,9 @@ function *create(){
     }catch(err){
         this.throw(err.message, err.status || 500);
     }
+
+    //Created
+    this.status = 201;
 }
 
 function *index(){

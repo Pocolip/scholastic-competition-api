@@ -3,7 +3,7 @@
  */
 
 module.exports = function(sequelize, DataTypes) {
-    var Professor =  sequelize.define('Professor', {
+    var School =  sequelize.define('School', {
         id : {
             type : DataTypes.INTEGER,
             allowNull : false,
@@ -41,5 +41,5 @@ module.exports = function(sequelize, DataTypes) {
         timestamps: true
     });
 
-    return Professor;
+    return School;
 };

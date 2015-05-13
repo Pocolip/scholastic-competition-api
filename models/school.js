@@ -3,33 +3,29 @@
  */
 
 module.exports = function(sequelize, DataTypes) {
-    var School =  sequelize.define('School', {
+    var Professor =  sequelize.define('Professor', {
         id : {
             type : DataTypes.INTEGER,
             allowNull : false,
             primaryKey : true,
             autoIncrement : true
         },
-        name : {
+        firstName : {
             type : DataTypes.STRING
         },
-        address1 : {
+        lastName : {
             type : DataTypes.STRING
         },
-        address2 : {
+        email : {
             type : DataTypes.STRING
         },
-        zipcode : {
+        password : {
             type : DataTypes.STRING
         },
-        city : {
-            type : DataTypes.STRING
-        },
-        grade : {
-            type : DataTypes.ENUM('K-6', '7-9', '10-12', 'K-9', 'K-12', '7-12')
-        },
-        phone : {
-            type : DataTypes.STRING
+        school : {
+            type : DataTypes.INTEGER,
+            references : 'Schools',
+            referencesKey : 'id'
         },
         createdAt : {
             type : DataTypes.DATE
@@ -41,5 +37,5 @@ module.exports = function(sequelize, DataTypes) {
         timestamps: true
     });
 
-    return School;
+    return Professor;
 };

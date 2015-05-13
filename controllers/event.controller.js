@@ -9,8 +9,8 @@ module.exports = function(){
 
     var eventController = new Router()
         .post('/event', loadModels, koaBody, create)
-        .get('/event', index)
-        .get('/event/:id', show);
+        .get('/event', loadModels, index)
+        .get('/event/:id', loadModels, show);
 
     return eventController.routes();
 }

@@ -9,8 +9,8 @@ module.exports = function(){
 
     var trackController = new Router()
         .post('/track', loadModels, koaBody, create)
-        .get('/track', index)
-        .get('/track/:id', show);
+        .get('/track', loadModels, index)
+        .get('/track/:id', loadModels, show);
 
     return trackController.routes();
 }

@@ -9,8 +9,8 @@ module.exports = function(){
 
     var schoolController = new Router()
         .post('/school', loadModels, koaBody, create)
-        .get('/school', index)
-        .get('/school/:id', show);
+        .get('/school', loadModels, index)
+        .get('/school/:id', loadModels, show);
 
     return schoolController.routes();
 }
