@@ -1,7 +1,3 @@
-/**
- * Created by cesarcruz on 5/13/15.
- */
-
 
 var Router = require('koa-router'),
     koaBody = require('koa-better-body')(),
@@ -11,16 +7,16 @@ module.exports = function(){
 
     var loadModels = middleware.loadModel();
 
-    var professorController = new Router()
-        .post('/professor', loadModels, koaBody, create)
-        .get('/professor', index)
-        .get('/professor/:id', show);
+    var schoolController = new Router()
+        .post('/school', loadModels, koaBody, create)
+        .get('/school', index)
+        .get('/school/:id', show);
 
-    return professorController.routes();
+    return schoolController.routes();
 }
 
 /**
- * Create a Professor Entity
+ * Create a School Entity
  */
 function *create(){
     var payload = this.request.body.fields;
@@ -28,37 +24,37 @@ function *create(){
     if(!payload) this.throw('Invalid Payload', 400);
 
     try{
-        yield this.models['Professor'].create(payload);
+        yield this.models['School'].create(payload);
     }catch(err){
         this.throw(err.message, err.status || 500);
     }
 }
 
 function *index(){
-    var professors;
+    var schools;
     try {
-        professors = yield this.models['Professor'].findAll({
+        schools = yield this.models['School'].findAll({
             attributes : ['id', 'name', 'address1', 'address2', 'zipcode', 'city', 'grade', 'phone', 'createdAt', 'updatedAt']
         });
     } catch (err) {
         this.throw(err.message, err.status || 500);
     }
 
-    if(!professors || professors.length < 1){
+    if(!schools || schools.length < 1){
         this.throw('Not Found', 404);
     }
 
     this.status = 200;
 
-    this.body = { professors : professors}
+    this.body = { schools : schools}
 }
 
 function *show(){
     var id = this.params.id,
-        professor;
+        school;
 
     try {
-        professor = yield this.models['Professor'].find({
+        school = yield this.models['School'].find({
             where : {
                 id : id
             },
@@ -68,11 +64,11 @@ function *show(){
         this.throw(err.message, err.status || 500);
     }
 
-    if(!professor) {
+    if(!event) {
         this.throw('Not Found', 404);
     }
 
     this.status = 200;
 
-    this.body = professor;
+    this.body = school;
 }

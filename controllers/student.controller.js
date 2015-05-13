@@ -1,7 +1,3 @@
-/**
- * Created by cesarcruz on 5/13/15.
- */
-
 
 var Router = require('koa-router'),
     koaBody = require('koa-better-body')(),
@@ -11,16 +7,16 @@ module.exports = function(){
 
     var loadModels = middleware.loadModel();
 
-    var professorController = new Router()
-        .post('/professor', loadModels, koaBody, create)
-        .get('/professor', index)
-        .get('/professor/:id', show);
+    var studentController = new Router()
+        .post('/student', loadModels, koaBody, create)
+        .get('/student', index)
+        .get('/student/:id', show);
 
-    return professorController.routes();
+    return studentController.routes();
 }
 
 /**
- * Create a Professor Entity
+ * Create a Student Entity
  */
 function *create(){
     var payload = this.request.body.fields;
@@ -28,51 +24,51 @@ function *create(){
     if(!payload) this.throw('Invalid Payload', 400);
 
     try{
-        yield this.models['Professor'].create(payload);
+        yield this.models['Student'].create(payload);
     }catch(err){
         this.throw(err.message, err.status || 500);
     }
 }
 
 function *index(){
-    var professors;
+    var students;
     try {
-        professors = yield this.models['Professor'].findAll({
+        students = yield this.models['Student'].findAll({
             attributes : ['id', 'name', 'address1', 'address2', 'zipcode', 'city', 'grade', 'phone', 'createdAt', 'updatedAt']
         });
     } catch (err) {
         this.throw(err.message, err.status || 500);
     }
 
-    if(!professors || professors.length < 1){
+    if(!students || students.length < 1){
         this.throw('Not Found', 404);
     }
 
     this.status = 200;
 
-    this.body = { professors : professors}
+    this.body = { students : students}
 }
 
 function *show(){
     var id = this.params.id,
-        professor;
+        student;
 
     try {
-        professor = yield this.models['Professor'].find({
+        student = yield this.models['Student'].find({
             where : {
                 id : id
             },
-            attributes : ['id', 'name', 'address1', 'address2', 'zipcode', 'city', 'grade', 'phone', 'createdAt', 'updatedAt']
+            attributes : ['id', 'name', 'description', 'grade', 'location', 'date', 'requirements', 'createdAt', 'updatedAt']
         });
     } catch(err) {
         this.throw(err.message, err.status || 500);
     }
 
-    if(!professor) {
+    if(!student) {
         this.throw('Not Found', 404);
     }
 
     this.status = 200;
 
-    this.body = professor;
+    this.body = student;
 }

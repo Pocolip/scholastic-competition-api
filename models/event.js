@@ -16,13 +16,13 @@ module.exports = function(sequelize, DataTypes) {
             type : DataTypes.ENUM('K-6', '7-9', '10-12', 'K-9', 'K-12', '7-12')
         },
         location : {
-            type : Sequelize.STRING
+            type : DataTypes.STRING
         },
         date : {
-            type : Sequelize.DATE
+            type : DataTypes.DATE
         },
         requirements : {
-            type : Sequelize.STRING
+            type : DataTypes.STRING
         },
         createdAt : {
             type : DataTypes.DATE
