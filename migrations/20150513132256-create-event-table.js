@@ -30,6 +30,9 @@ module.exports = {
           date : {
               type : Sequelize.DATE
           },
+          requirements : {
+              type : Sequelize.STRING
+          },
           createdAt : {
               type : Sequelize.DATE,
               allowNull : false
@@ -37,9 +40,6 @@ module.exports = {
           updatedAt : {
               type : Sequelize.DATE,
               allowNull : false
-          },
-          requirements : {
-              type : Sequelize.STRING
           }
       }, {
           freezeTableName : true
