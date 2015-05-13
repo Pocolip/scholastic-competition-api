@@ -33,9 +33,7 @@ function *create(){
 function *index(){
     var events;
     try {
-        events = yield this.models['Event'].findAll({
-            attributes : ['id', 'name', 'description', 'grade', 'location', 'date', 'requirements', 'createdAt', 'updatedAt']
-        });
+        events = yield this.models['Event'].findAll();
     } catch (err) {
         this.throw(err.message, err.status || 500);
     }
