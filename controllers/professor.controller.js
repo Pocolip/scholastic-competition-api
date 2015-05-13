@@ -34,6 +34,8 @@ function *create(){
     }catch(err){
         this.throw(err.message, err.status || 500);
     }
+
+    this.status = 201;
 }
 
 function *index(){

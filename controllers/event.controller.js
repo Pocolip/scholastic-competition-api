@@ -55,8 +55,7 @@ function *show(){
         event = yield this.models['Event'].find({
             where : {
                 id : id
-            },
-            attributes : ['id', 'name', 'description', 'grade', 'location', 'date', 'requirements', 'createdAt', 'updatedAt']
+            }
         });
     } catch(err) {
         this.throw(err.message, err.status || 500);
